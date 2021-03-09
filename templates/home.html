@@ -11,10 +11,8 @@
         var contnt = "";
         var formm = document.getElementById('form');
         var letters = "{{name}}";
-        var data = {
-            "sender" : letters,
-            "name" : formm.name.value,
-        };
+        var data = 
+            "{{name}}" + " : " + formm.name.value + "<br>";
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://127.0.0.1:5000/message', true);
@@ -62,7 +60,6 @@
 
 <form id="form" action="javascript:postData()">
   <input id="name" name="name" placeholder="Chat here" type="text"><br> 
-  <input id="age" name="age" type="text" ><br> 
   <input type="submit" value="Submit">
 </form>
 <div></div>
