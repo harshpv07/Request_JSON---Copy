@@ -3,28 +3,27 @@ from flask import Flask,render_template,request,jsonify
 app = Flask(__name__)
 
 from collections import defaultdict
-mess = []
+mess = [] #This global list is used to store all the messages in the correct order
 
-@app.route('/' , methods= ["GET" , "POST"]) #Home route
+@app.route('/' , methods= ["GET" , "POST"]) #Login & Registration page
 def homee():    
-    return render_template("authen.html" ) #Render the page which contains the form details.
+    return render_template("authen.html" ) #This page contains the login and registration page.
 
 
-@app.route('/<name>' , methods= ["GET" , "POST"]) #Home route
+@app.route('/<name>' , methods= ["GET" , "POST"]) #Chat page
 def index(name):    
-    return render_template("home.html" , name = str(name) , chathis = mess) #Render the page which contains the form details.
+    return render_template("home.html" , name = str(name)) #This page renders the chat window
 
 
-@app.route('/message' , methods= ["GET" , "POST"]) #Second route
-def message(): #This is the message route where the we post the user details.
-    data = request.json #Fetch the request whose body contains all the user details in JSON format
-    mess.append(data)
-    print(mess)
-    print(data) #Print the user details in JSON format
-    return "hey"
+@app.route('/message' , methods= ["GET" , "POST"]) #Insert message to buffer
+def message(): 
+    data = request.json #Fetch the request that contains the name of the sender and the message associated with it in JSON format
+    mess.append(data) #Add the message and the sender name to the list
+    print(data)
+    return "" #We do send any response back to client since it is an insertion operation
 
-@app.route('/getupdate' , methods= ["GET" , "POST"]) #Second route
-def getupdate(): #This is the message route where the we post the user details.
-    return jsonify(mess)
+@app.route('/getupdate' , methods= ["GET" , "POST"]) #Fetch all message from buffer
+def getupdate():
+    return jsonify(mess) #This will return the list of messages as response
 
 app.run(debug=True)
