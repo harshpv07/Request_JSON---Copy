@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Home page
+    </title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+
+    <script>
+    var formm = document.getElementById('form');
+    async function postData(){
+        var contnt = "";
+        var formm = document.getElementById('form');
+        var letters = "{{name}}";
+        var data = {
+            "sender" : letters,
+            "name" : formm.name.value,
+        };
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://127.0.0.1:5000/message', true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onload = function () {  
+            console.log(this.responseText + "hey sample");
+        };
+        await xhr.send(JSON.stringify(data));
+        location.reload();
+
+    }
+
+    async function uptd(){
+        var data = {};
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://127.0.0.1:5000/getupdate', true);
+        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        xhr.onload = function () {  
+            console.log(this.responseText + "update");
+        };
+        await xhr.send(JSON.stringify(data));
+
+    }
+
+    var timer;
+    var seconds = 2; // how often should we refresh the DIV?
+
+    function startActivityRefresh() {
+        timer = setInterval(function() {
+            $('#showmess').load('http://127.0.0.1:5000/getupdate');
+        }, seconds*1000)
+    }
+
+    function cancelActivityRefresh() {
+        clearInterval(timer);
+    }
+    startActivityRefresh();
+    </script>
+</head>
+<body>
+<h1>{{name}}</h1>
+<div id = "showmess">
+    <br> 
+</div>
+
+<form id="form" action="javascript:postData()">
+  <input id="name" name="name" placeholder="Chat here" type="text"><br> 
+  <input id="age" name="age" type="text" ><br> 
+  <input type="submit" value="Submit">
+</form>
+<div></div>
+</body>
+</html>

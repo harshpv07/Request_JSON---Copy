@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <title>
+        Home page
+    </title>
+    <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
+    
+    <script>
+        function postData(){
+            var formm = document.getElementById('form');
+            var tc = "http://127.0.0.1:5000/" + String(formm.uname.value);
+            window.location =  tc;
+
+        }
+    </script>
+</head>
+<body>
+
+<form id="form" action="javascript:postData()">
+  <input id="uname" name="uname" placeholder="Username" required><br> 
+  <input id="pass" name="pass" type="text" placeholder = "Password" required><br> 
+  <input type="submit" value="Submit">
+</form>
+</body>
+</html>
