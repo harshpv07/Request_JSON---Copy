@@ -27,3 +27,4 @@ def getupdate():
     return jsonify(mess) #This will return the list of messages as response
 
 app.run(debug=True)
+

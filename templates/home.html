@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
     <title>
-        Home page
+        {{name}}
     </title>
     <script src="http://code.jquery.com/jquery-3.1.1.js"></script>
 
@@ -18,28 +18,14 @@
         xhr.open('POST', 'http://127.0.0.1:5000/message', true);
         xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         xhr.onload = function () {  
-            console.log(this.responseText + "hey sample");
+            console.log(this.responseText);
         };
         await xhr.send(JSON.stringify(data));
-        location.reload();
-
-    }
-
-    async function uptd(){
-        var data = {};
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://127.0.0.1:5000/getupdate', true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.onload = function () {  
-            console.log(this.responseText + "update");
-        };
-        await xhr.send(JSON.stringify(data));
-
+        formm.name.value = "";
     }
 
     var timer;
-    var seconds = 2; // how often should we refresh the DIV?
-
+    var seconds = 2;
     function startActivityRefresh() {
         timer = setInterval(function() {
             $('#showmess').load('http://127.0.0.1:5000/getupdate');
